@@ -3,7 +3,15 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     public GameObject player;
-    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PressurePlate"))
+        {
+            Debug.Log("PressurePlate");
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         switch (other.collider.name)
