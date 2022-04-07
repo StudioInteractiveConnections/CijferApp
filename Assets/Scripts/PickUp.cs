@@ -11,19 +11,19 @@ public class PickUp : MonoBehaviour
             case "Option1":
                 Debug.Log("Touching Option1");
                 other.transform.SetParent(player.transform);
-                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 1);
                 break;
            
             case "Option2":
                 Debug.Log("Touching Option1");
                 other.transform.SetParent(player.transform);
-                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 1);
                 break;
            
             case "Option3":
                 Debug.Log("Touching Option1");
                 other.transform.SetParent(player.transform);
-                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 1);
                 break;
 
             default:
