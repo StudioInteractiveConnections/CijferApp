@@ -19,6 +19,11 @@ public class Guard : MonoBehaviour
     private GameObject player;
     private bool canSeePlayer = false;
 
+    private State _currentState;
+    private StatePatrol patrolState = new StatePatrol();
+    private StateFollow followState = new StateFollow();
+    private StateArrest arrestState = new StateArrest();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +31,10 @@ public class Guard : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
         //StartCoroutine(FOVCheck());
+
+        _currentState = patrolState;
+        Debug.Log(_currentState);
+        _currentState.Enter(this);
     }
 
     // Update is called once per frame
@@ -43,6 +52,7 @@ public class Guard : MonoBehaviour
         }
 
         Move();
+        UpdateState();
     }
 
     private IEnumerator FOVCheck()
@@ -59,12 +69,25 @@ public class Guard : MonoBehaviour
     private void SetDirection(Vector3 des)
     {
         destination = des;
-        Debug.Log(destination);
+        //Debug.Log(destination);
     }
 
     private void Move()
     {
         transform.position = Vector3.MoveTowards(transform.position, destination, spd * Time.deltaTime);
+    }
+
+    private void UpdateState()
+    {
+        //Debug.Log(_currentState);
+        Debug.Log(this);
+        _currentState.Execute(this);
+    }
+
+    public void SwitchState(State newState)
+    {
+        _currentState = newState;
+        _currentState.Enter(this);
     }
 
     private void FOV()

@@ -34,10 +34,10 @@ public class FieldOfView : MonoBehaviour
         //Debug.Log("FOV");
         Collider2D[] rangeCheck = Physics2D.OverlapCircleAll(transform.position, radius, playerLayer);
 
-        Debug.Log(rangeCheck.Length);
+        //Debug.Log(rangeCheck.Length);
         if (rangeCheck.Length > 0)
         {
-            Debug.Log("rangecheck");
+            //Debug.Log("rangecheck");
             Transform target = rangeCheck[0].transform;
             Vector2 targetdir = (target.position - transform.position).normalized;
 
@@ -45,7 +45,7 @@ public class FieldOfView : MonoBehaviour
 
             if (Vector2.Angle(transform.up, targetdir) < angle / 2)
             {
-                Debug.Log("angle");
+                //Debug.Log("angle");
                 float disToTarget = Vector2.Distance(transform.position, target.position);
 
                 if (!Physics2D.Raycast(transform.position, targetdir, disToTarget, obstructionLayer))
