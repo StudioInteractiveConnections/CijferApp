@@ -9,19 +9,25 @@ public class PickUp : MonoBehaviour
         switch (other.collider.name)
         {
             case "Option1":
-                Debug.Log("Touching Option1");
+                Destroy(GameObject.Find("Option2"));
+                Destroy(GameObject.Find("Option3"));
+                Debug.Log("Picked up option 1");
                 other.transform.SetParent(player.transform);
                 other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
                 break;
            
             case "Option2":
-                Debug.Log("Touching Option2");
+                Destroy(GameObject.Find("Option1"));
+                Destroy(GameObject.Find("Option3"));
+                Debug.Log("Picked up option 2");
                 other.transform.SetParent(player.transform);
                 other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
                 break;
            
             case "Option3":
-                Debug.Log("Touching Option3");
+                Destroy(GameObject.Find("Option1"));
+                Destroy(GameObject.Find("Option2"));
+                Debug.Log("Picked up option 3");
                 other.transform.SetParent(player.transform);
                 other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
                 break;
