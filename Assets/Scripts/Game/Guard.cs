@@ -24,19 +24,16 @@ public class Guard : MonoBehaviour
     //private StateArrest arrestState = new StateArrest();
     private State _currentState;
 
-    // Start is called before the first frame update
     void Start()
     {
         pos1 = transform.position;
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
-        //StartCoroutine(FOVCheck());
 
         _currentState = patrolState;
         _currentState.Enter(this);
     }
 
-    // Update is called once per frame
     void Update()
     {
         Debug.Log(canSeePlayer);
@@ -50,29 +47,12 @@ public class Guard : MonoBehaviour
             SetDirection(pos1);
         }
 
-        //Debug.Log(canSeePlayer);
-        //if (!canSeePlayer)
-        //{
-        //    Move();
-        //}
         UpdateState();
     }
-
-    /*private IEnumerator FOVCheck()
-    {
-        WaitForSeconds wait = new WaitForSeconds(0.2f);
-
-        while (true)
-        {
-            yield return wait;
-            FOV();
-        }
-    }*/
 
     private void SetDirection(Vector3 des)
     {
         destination = des;
-        //Debug.Log(destination);
     }
 
     public void Move()
@@ -96,70 +76,4 @@ public class Guard : MonoBehaviour
         _currentState = newState;
         _currentState.Enter(this);
     }
-
-    /*private void FOV()
-    {
-        if (Vector3.Distance(transform.position, player.transform.position) < radius)
-        {
-            Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
-        }
-        //Debug.Log("FOV");
-        /*Collider2D[] rangeCheck = Physics2D.OverlapCircleAll(transform.position, radius, targetlayer);
-
-        Debug.Log(rangeCheck.Length);
-        if (rangeCheck.Length > 0)
-        {
-            Debug.Log("rangecheck");
-            Transform target = rangeCheck[0].transform;
-            Vector2 targetdir = (target.position - transform.position).normalized;
-
-            if (Vector2.Angle(transform.up, targetdir) < angle / 2)
-            {
-                Debug.Log("angle");
-                float disToTarget = Vector2.Distance(transform.position, target.position);
-
-                if (!Physics2D.Raycast(transform.position, targetdir, disToTarget, obstructionlayer))
-                {
-                    canSeePlayer = true;
-                    Debug.Log("can see player");
-                }
-                else
-                {
-                    canSeePlayer = false;
-                }
-            }
-            else
-            {
-                canSeePlayer = false;
-            }
-        }
-        else if (canSeePlayer)
-        {
-            canSeePlayer = false;
-        }
-    }*/
-
-    /*private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, radius);
-
-        Vector3 angle01 = DirFromAngle(-transform.eulerAngles.z, -angle / 2);
-        Vector3 angle02 = DirFromAngle(-transform.eulerAngles.z, angle / 2);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, transform.position + angle01 * radius);
-        Gizmos.DrawLine(transform.position, transform.position + angle02 * radius);
-
-        if (canSeePlayer)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(transform.position, player.transform.position);
-        }
-    }
-
-    private Vector2 DirFromAngle(float eulerY, float angleDegrees)
-    {
-        angleDegrees += eulerY;
-        return new Vector2(Mathf.Sin(angleDegrees * Mathf.Deg2Rad), Mathf.Cos(angleDegrees * Mathf.Deg2Rad));
-    }*/
 }
