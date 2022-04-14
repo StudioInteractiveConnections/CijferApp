@@ -18,11 +18,18 @@ public class StatePatrol : State {
 	public override void Execute(Guard guard)
 	{
 		Debug.Log("Patrolling!!!");
+		Debug.Log(guard);
+		guard.Move();
+
+		if (guard.canSeePlayer)
+        {
+			Exit(guard);
+        }
 	}
 
 	public override void Exit(Guard guard)
 	{
-		//guard.ChangeState(new StateFollow(guard));
+		guard.SwitchState(new StateFollow());
 	}
 }
 
@@ -30,17 +37,23 @@ public class StateFollow : State
 {
 	public override void Enter(Guard guard)
 	{
-
+		Debug.Log("Following thief!!!");
 	}
 
 	public override void Execute(Guard guard)
 	{
+		Debug.Log("xxxx");
+		guard.MoveToPlayer();
 
+		if (!guard.canSeePlayer)
+        {
+			Exit(guard);
+        }
 	}
 
 	public override void Exit(Guard guard)
 	{
-
+		guard.SwitchState(new StatePatrol());
 	}
 }
 

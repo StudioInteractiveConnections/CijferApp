@@ -10,13 +10,15 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private LayerMask obstructionLayer;
 
-    private bool canSeePlayer = false;
+    //private bool canSeePlayer = false;
     [SerializeField] private Rigidbody2D player;
 
-    // Start is called before the first frame update
+    private Guard guard;
+
     void Start()
     {
         //player = gameObject.GetComponent<Rigidbody2D>();
+        guard = gameObject.GetComponent<Guard>();
     }
 
     // Update is called once per frame
@@ -50,26 +52,26 @@ public class FieldOfView : MonoBehaviour
 
                 if (!Physics2D.Raycast(transform.position, targetdir, disToTarget, obstructionLayer))
                 {
-                    canSeePlayer = true;
-                    Debug.Log("can see player");
+                    guard.canSeePlayer = true;
+                    //Debug.Log("can see player");
                 }
                 else
                 {
-                    canSeePlayer = false;
+                    guard.canSeePlayer = false;
                 }
             }
             else
             {
-                canSeePlayer = false;
+                guard.canSeePlayer = false;
             }
         }
-        else if (canSeePlayer)
+        else if (guard.canSeePlayer)
         {
-            canSeePlayer = false;
+            guard.canSeePlayer = false;
         }
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, radius);
@@ -78,9 +80,10 @@ public class FieldOfView : MonoBehaviour
         Vector3 angle02 = DirFromAngle(-transform.eulerAngles.z, angle / 2);
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, transform.position + angle01 * radius);
+        Gizmos.DrawLine(transform.position, transform.position + angle02 * radius);
         Gizmos.DrawLine(transform.position, player.transform.position);
 
-        if (canSeePlayer)
+        if (guard.canSeePlayer)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawLine(transform.position, player.transform.position);
@@ -91,5 +94,5 @@ public class FieldOfView : MonoBehaviour
     {
         angleDegrees += eulerY;
         return new Vector2(Mathf.Sin(angleDegrees * Mathf.Deg2Rad), Mathf.Cos(angleDegrees * Mathf.Deg2Rad));
-    }
+    }*/
 }

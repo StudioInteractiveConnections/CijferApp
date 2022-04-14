@@ -17,12 +17,12 @@ public class Guard : MonoBehaviour
     [SerializeField] private LayerMask obstructionlayer;
 
     private GameObject player;
-    private bool canSeePlayer = false;
+    public bool canSeePlayer = false;
 
-    private State _currentState;
     private StatePatrol patrolState = new StatePatrol();
-    private StateFollow followState = new StateFollow();
-    private StateArrest arrestState = new StateArrest();
+    //private StateFollow followState = new StateFollow();
+    //private StateArrest arrestState = new StateArrest();
+    private State _currentState;
 
     // Start is called before the first frame update
     void Start()
@@ -33,14 +33,13 @@ public class Guard : MonoBehaviour
         //StartCoroutine(FOVCheck());
 
         _currentState = patrolState;
-        Debug.Log(_currentState);
         _currentState.Enter(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(transform.position);
+        Debug.Log(canSeePlayer);
 
         if (transform.position == pos1)
         {
@@ -51,11 +50,15 @@ public class Guard : MonoBehaviour
             SetDirection(pos1);
         }
 
-        Move();
+        //Debug.Log(canSeePlayer);
+        //if (!canSeePlayer)
+        //{
+        //    Move();
+        //}
         UpdateState();
     }
 
-    private IEnumerator FOVCheck()
+    /*private IEnumerator FOVCheck()
     {
         WaitForSeconds wait = new WaitForSeconds(0.2f);
 
@@ -64,7 +67,7 @@ public class Guard : MonoBehaviour
             yield return wait;
             FOV();
         }
-    }
+    }*/
 
     private void SetDirection(Vector3 des)
     {
@@ -72,15 +75,19 @@ public class Guard : MonoBehaviour
         //Debug.Log(destination);
     }
 
-    private void Move()
+    public void Move()
     {
         transform.position = Vector3.MoveTowards(transform.position, destination, spd * Time.deltaTime);
     }
 
+    public void MoveToPlayer()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, spd * Time.deltaTime);
+    }
+
     private void UpdateState()
     {
-        //Debug.Log(_currentState);
-        Debug.Log(this);
+        Debug.Log(_currentState);
         _currentState.Execute(this);
     }
 
@@ -90,7 +97,7 @@ public class Guard : MonoBehaviour
         _currentState.Enter(this);
     }
 
-    private void FOV()
+    /*private void FOV()
     {
         if (Vector3.Distance(transform.position, player.transform.position) < radius)
         {
@@ -131,9 +138,8 @@ public class Guard : MonoBehaviour
             canSeePlayer = false;
         }
     }*/
-    }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, radius);
@@ -155,5 +161,5 @@ public class Guard : MonoBehaviour
     {
         angleDegrees += eulerY;
         return new Vector2(Mathf.Sin(angleDegrees * Mathf.Deg2Rad), Mathf.Cos(angleDegrees * Mathf.Deg2Rad));
-    }
+    }*/
 }
