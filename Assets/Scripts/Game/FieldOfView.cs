@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-    private int radius = 5;
+    private int sightRadius = 5;
+    private int arrestRadius = 2;
     private int angle = 90;
 
     [SerializeField] private LayerMask playerLayer;
@@ -26,14 +27,19 @@ public class FieldOfView : MonoBehaviour
 
     private void FOV()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < radius)
+        if (Vector3.Distance(transform.position, player.transform.position) < arrestRadius)
         {
-            Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
+            guard.SetArrest(true);
         }
-        Collider2D[] rangeCheck = Physics2D.OverlapCircleAll(transform.position, radius, playerLayer);
+        if (Vector3.Distance(transform.position, player.transform.position) < sightRadius)
+        {
+            //Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
+        }
+        Collider2D[] rangeCheck = Physics2D.OverlapCircleAll(transform.position, sightRadius, playerLayer);
 
         if (rangeCheck.Length > 0)
         {
+            Debug.Log(rangeCheck.Length);
             Transform target = rangeCheck[0].transform;
             Vector2 targetdir = (target.position - transform.position).normalized;
 
@@ -43,25 +49,25 @@ public class FieldOfView : MonoBehaviour
 
                 if (!Physics2D.Raycast(transform.position, targetdir, disToTarget, obstructionLayer))
                 {
-                    guard.canSeePlayer = true;
+                    guard.SetCanSee(true);
                 }
                 else
                 {
-                    guard.canSeePlayer = false;
+                    guard.SetCanSee(false);
                 }
             }
             else
             {
-                guard.canSeePlayer = false;
+                guard.SetCanSee(false);
             }
         }
-        else if (guard.canSeePlayer)
+        else if (guard.GetCanSee())
         {
-            guard.canSeePlayer = false;
+            guard.SetCanSee(false);
         }
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, radius);
@@ -84,5 +90,5 @@ public class FieldOfView : MonoBehaviour
     {
         angleDegrees += eulerY;
         return new Vector2(Mathf.Sin(angleDegrees * Mathf.Deg2Rad), Mathf.Cos(angleDegrees * Mathf.Deg2Rad));
-    }
+    }*/
 }

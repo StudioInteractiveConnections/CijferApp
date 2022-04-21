@@ -10,6 +10,9 @@ public abstract class State : MonoBehaviour
 }
 
 public class StatePatrol : State {
+
+	private bool csp;
+
 	public override void Enter(Guard guard)
     {
 		Debug.Log("Start patrolling!!!");
@@ -17,11 +20,12 @@ public class StatePatrol : State {
 
 	public override void Execute(Guard guard)
 	{
+		csp = guard.GetCanSee();
 		Debug.Log("Patrolling!!!");
 		Debug.Log(guard);
 		guard.Move();
 
-		if (guard.canSeePlayer)
+		if (csp)
         {
 			Exit(guard);
         }
@@ -35,17 +39,21 @@ public class StatePatrol : State {
 
 public class StateFollow : State
 {
+	private bool csp;
+	private bool cap;
+
 	public override void Enter(Guard guard)
 	{
-		Debug.Log("Following thief!!!");
+
 	}
 
 	public override void Execute(Guard guard)
 	{
-		Debug.Log("xxxx");
+		csp = guard.GetCanSee();
+		cap = guard.GetArrest();
 		guard.MoveToPlayer();
 
-		if (!guard.canSeePlayer)
+		if (!csp || cap)
         {
 			Exit(guard);
         }
@@ -53,7 +61,14 @@ public class StateFollow : State
 
 	public override void Exit(Guard guard)
 	{
-		guard.SwitchState(new StatePatrol());
+		if (!csp)
+		{
+			guard.SwitchState(new StatePatrol());
+		}
+		else if (cap)
+        {
+			guard.SwitchState(new StateArrest());
+		}
 	}
 }
 
@@ -61,12 +76,13 @@ public class StateArrest : State
 {
 	public override void Enter(Guard guard)
 	{
-
+		Debug.Log("Arresting thief!!!");
 	}
 
 	public override void Execute(Guard guard)
 	{
-
+		Debug.Log("Arresting thief!!!");
+		// play arrest animation
 	}
 
 	public override void Exit(Guard guard)

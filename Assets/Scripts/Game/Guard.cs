@@ -17,7 +17,8 @@ public class Guard : MonoBehaviour
     [SerializeField] private LayerMask obstructionlayer;
 
     private GameObject player;
-    public bool canSeePlayer = false;
+    private bool canSeePlayer = false;
+    private bool canArrestPlayer = false;
 
     private StatePatrol patrolState = new StatePatrol();
     //private StateFollow followState = new StateFollow();
@@ -36,8 +37,6 @@ public class Guard : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(canSeePlayer);
-
         if (transform.position == pos1)
         {
             SetDirection(pos2);
@@ -75,5 +74,25 @@ public class Guard : MonoBehaviour
     {
         _currentState = newState;
         _currentState.Enter(this);
+    }
+
+    public bool GetCanSee()
+    {
+        return canSeePlayer;
+    }
+
+    public bool GetArrest()
+    {
+        return canArrestPlayer;
+    }
+
+    public void SetCanSee(bool b)
+    {
+        canSeePlayer = b;
+    }
+
+    public void SetArrest(bool b)
+    {
+        canArrestPlayer = b;
     }
 }
