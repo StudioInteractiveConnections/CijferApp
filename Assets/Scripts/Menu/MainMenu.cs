@@ -7,28 +7,14 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public GameObject Panel;
-    public GameObject StartPanel;
     public GameObject OptionsPanel;
     public GameObject CreditsPanel;
 
-    public void OpenStart()
-    {
-        if (StartPanel != null)
-        {
-            StartPanel.SetActive(true);
-            Panel.SetActive(false);
-        }
+    public void StartGame()
+    {  
+        SceneManager.LoadScene("Game");  
     }
 
-    public void CloseStart()
-    {
-        if (Panel != null)
-        {
-            StartPanel.SetActive(false);
-            Panel.SetActive(true);
-        }
-    }
-    
     public void OpenOptions()
     {
         if (OptionsPanel != null)
