@@ -83,6 +83,7 @@ public class Guard : MonoBehaviour
 
     public bool GetArrest()
     {
+        Debug.Log("get arrest is " + canArrestPlayer);
         return canArrestPlayer;
     }
 
