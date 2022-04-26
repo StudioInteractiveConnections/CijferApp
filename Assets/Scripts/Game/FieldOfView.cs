@@ -7,6 +7,7 @@ public class FieldOfView : MonoBehaviour
     private int sightRadius = 5;
     private int arrestRadius = 2;
     private int angle = 90;
+    private int angleDirection;
 
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private LayerMask obstructionLayer;
@@ -43,7 +44,8 @@ public class FieldOfView : MonoBehaviour
             Transform target = rangeCheck[0].transform;
             Vector2 targetdir = (target.position - transform.position).normalized;
 
-            if (Vector2.Angle(transform.up, targetdir) < angle / 2)
+            //if (Vector2.Angle(transform.up, targetdir) < angle / 2)
+            if (Vector2.Angle(transform.up, targetdir) < angleDirection)
             {
                 float disToTarget = Vector2.Distance(transform.position, target.position);
 

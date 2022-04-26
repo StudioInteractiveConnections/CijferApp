@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     private GameObject gameoverScreen;
+    private GameObject clearScreen;
     private GameObject guardOb;
     private Guard guard;
     private bool cap;
@@ -16,9 +17,11 @@ public class GameOver : MonoBehaviour
         Time.timeScale = 1;
         cap = false;
         gameoverScreen = GameObject.Find("GameOver");
+        clearScreen = GameObject.Find("ClearLevel");
         guardOb = GameObject.FindGameObjectWithTag("Guard");
         guard = guardOb.GetComponent<Guard>();
         gameoverScreen.SetActive(false);
+        clearScreen.SetActive(false);
     }
 
     void Update()
