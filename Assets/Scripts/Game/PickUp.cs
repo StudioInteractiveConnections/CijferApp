@@ -14,7 +14,7 @@ public class PickUp : MonoBehaviour
                 GameObject.Find("Option4").SetActive(false);
                 Debug.Log("Picked up option 1");
                 other.transform.SetParent(player.transform);
-                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 1);
                 break;
            
             case "Option2":
@@ -23,7 +23,7 @@ public class PickUp : MonoBehaviour
                 GameObject.Find("Option4").SetActive(false);
                 Debug.Log("Picked up option 2");
                 other.transform.SetParent(player.transform);
-                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 1);
                 break;
            
             case "Option3":
@@ -32,7 +32,7 @@ public class PickUp : MonoBehaviour
                 GameObject.Find("Option4").SetActive(false);
                 Debug.Log("Picked up option 3");
                 other.transform.SetParent(player.transform);
-                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 1);
                 break;
 
             case "Option4":
@@ -41,7 +41,7 @@ public class PickUp : MonoBehaviour
                 GameObject.Find("Option3").SetActive(false);
                 Debug.Log("Picked up option 4");
                 other.transform.SetParent(player.transform);
-                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+                other.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 1);
                 break;
 
             default:
