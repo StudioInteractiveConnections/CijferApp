@@ -44,8 +44,8 @@ public class FieldOfView : MonoBehaviour
             Transform target = rangeCheck[0].transform;
             Vector2 targetdir = (target.position - transform.position).normalized;
 
-            //if (Vector2.Angle(transform.up, targetdir) < angle / 2)
-            if (Vector2.Angle(transform.up, targetdir) < angleDirection)
+            if (Vector2.Angle(transform.up, targetdir) < angle / 2)
+            //if (Vector2.Angle(transform.up, targetdir) < angleDirection)
             {
                 float disToTarget = Vector2.Distance(transform.position, target.position);
 
